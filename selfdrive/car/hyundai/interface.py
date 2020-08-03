@@ -254,7 +254,7 @@ class CarInterface(CarInterfaceBase):
       ret.rightBlinker = self.CS.right_blinker_flash or self.CS.prev_right_blinker and self.CC.turning_signal_timer
 
     # turning indicator alert logic
-    if (ret.leftBlinker or ret.rightBlinker or self.CC.turning_signal_timer) and ret.vEgo < 16.7:
+    if (ret.leftBlinker or ret.rightBlinker or self.CC.turning_signal_timer):
       self.turning_indicator_alert = True 
     else:
       self.turning_indicator_alert = False
