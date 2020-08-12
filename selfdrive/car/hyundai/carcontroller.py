@@ -102,7 +102,8 @@ class CarController():
     elif CS.left_blinker_flash or CS.right_blinker_flash: # Optima has blinker flash signal only
       self.turning_signal_timer = 100
 
-    if self.turning_signal_timer and CS.out.vEgo < 60 * CV.KPH_TO_MS:
+    #if self.turning_signal_timer and CS.out.vEgo < 60 * CV.KPH_TO_MS:
+    if self.turning_signal_timer:
       lkas_active = 0
     if self.turning_signal_timer:
       self.turning_signal_timer -= 1
@@ -157,7 +158,8 @@ class CarController():
         self.last_lead_distance = CS.lead_distance
         self.resume_cnt = 0
       # when lead car starts moving, create 6 RES msgs
-      elif CS.lead_distance != self.last_lead_distance and (frame - self.last_resume_frame) > 5:
+      #elif CS.lead_distance != self.last_lead_distance and (frame - self.last_resume_frame) > 5:
+      elif self.last_lead_distance < CS.lead_distance > 4.8 and (frame - self.last_resume_frame) > 5:
         can_sends.append(create_clu11(self.packer, frame, CS.scc_bus, CS.clu11, Buttons.RES_ACCEL, clu11_speed))
         self.resume_cnt += 1
         # interval after 6 msgs
